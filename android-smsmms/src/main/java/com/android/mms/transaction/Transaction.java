@@ -86,7 +86,26 @@ public abstract class Transaction extends Observable {
      * @return true if transaction is equivalent to this instance, false otherwise.
      */
     public boolean isEquivalent(Transaction transaction) {
-        return mId.equals(transaction.mId);
+        
+		/* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: TransactionService.java, Line: 697
+				processTransaction(transaction)
+				 Information is passed through the method call via transaction to the formal param transaction of the method. This later results into a null pointer dereference.
+				The expression is enclosed inside an If statement.
+			File: TransactionService.java, Line: 811
+				Transaction transaction
+				Variable transaction is declared as a formal parameter.
+			File: TransactionService.java, Line: 815
+				t.isEquivalent(transaction)
+				 Information is passed through the method call via transaction to the formal param transaction of the method. This later results into a null pointer dereference.
+				The expression is enclosed inside an If statement.
+			File: Transaction.java, Line: 89
+				return mId.equals(transaction.mId);
+				transaction is referenced in field access.
+		*/
+		return mId.equals(transaction.mId);
     }
 
     /**
