@@ -23,7 +23,7 @@ import com.klinker.android.send_message.SmsManagerFactory;
 import timber.log.Timber;
 
 import java.io.File;
-import java.util.Random;
+import java.security.SecureRandom;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -60,7 +60,7 @@ public class DownloadManager {
         context.getApplicationContext().registerReceiver(receiver, new IntentFilter(receiver.mAction));
 
         Timber.v("receiving with system method");
-        final String fileName = "download." + String.valueOf(Math.abs(new Random().nextLong())) + ".dat";
+        final String fileName = "download." + String.valueOf(Math.abs(new SecureRandom().nextLong())) + ".dat";
         File mDownloadFile = new File(context.getCacheDir(), fileName);
         Uri contentUri = (new Uri.Builder())
                 .authority(context.getPackageName() + ".MmsFileProvider")
