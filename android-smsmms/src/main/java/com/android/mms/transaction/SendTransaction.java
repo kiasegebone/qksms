@@ -126,7 +126,20 @@ public class SendTransaction extends Transaction implements Runnable {
             // Check whether the responding Transaction-ID is consistent
             // with the sent one.
             byte[] reqId = sendReq.getTransactionId();
-            byte[] confId = conf.getTransactionId();
+            /* ********OpenRefactory Warning********
+			 Possible null pointer Dereference!
+			 Path: 
+				File: SendTransaction.java, Line: 120
+					SendConf conf=(SendConf)new PduParser(response).parse();
+					Variable conf is initialized null.
+				File: SendTransaction.java, Line: 121
+					conf == null
+					conf is null and it is used in a null test expression, meaning the test comes true.
+				File: SendTransaction.java, Line: 129
+					byte[] confId=conf.getTransactionId();
+					conf is referenced in method invocation.
+			*/
+			byte[] confId = conf.getTransactionId();
             if (!Arrays.equals(reqId, confId)) {
                 Timber.e("Inconsistent Transaction-ID: req="
                         + new String(reqId) + ", conf=" + new String(confId));
