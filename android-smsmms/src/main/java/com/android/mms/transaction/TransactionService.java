@@ -819,7 +819,19 @@ public class TransactionService extends Service implements Observer {
                 }
                 for (Transaction t : mProcessing) {
                     if (t.isEquivalent(transaction)) {
-                        Timber.v("Duplicated transaction: " + transaction.getServiceId());
+                        
+						/* ********OpenRefactory Warning********
+						 Possible null pointer Dereference!
+						 Path: 
+							File: TransactionService.java, Line: 697
+								processTransaction(transaction)
+								 Information is passed through the method call via transaction to the formal param transaction of the method. This later results into a null pointer dereference.
+								The expression is enclosed inside an If statement.
+							File: TransactionService.java, Line: 822
+								Timber.v("Duplicated transaction: " + transaction.getServiceId());
+								transaction is referenced in method invocation.
+						*/
+						Timber.v("Duplicated transaction: " + transaction.getServiceId());
                         return true;
                     }
                 }
