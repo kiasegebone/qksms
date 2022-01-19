@@ -1471,7 +1471,29 @@ public class PduParser {
                         } catch (UnsupportedEncodingException e) {
                             // Not a well-known charset, use "*".
                             Timber.e(e, Arrays.toString(charsetStr));
-                            map.put(PduPart.P_CHARSET, CharacterSets.ANY_CHARSET);
+                            /* ********OpenRefactory Warning********
+							 Possible null pointer Dereference!
+							 Path: 
+								File: RetrieveTransaction.java, Line: 142
+									RetrieveConf retrieveConf=(RetrieveConf)new PduParser(resp).parse();
+									 Information is passed through the method call that later results into a null pointer dereference.
+								File: PduParser.java, Line: 121
+									mHeaders=parseHeaders(mPduDataStream);
+									 Information is passed through the method call that later results into a null pointer dereference.
+								File: PduParser.java, Line: 785
+									parseContentType(pduDataStream,null);
+									 Information is passed through the method call via null to the formal param map of the method. This later results into a null pointer dereference.
+								File: PduParser.java, Line: 1532
+									HashMap<Integer,Object> map
+									Variable map is declared as a formal parameter.
+								File: PduParser.java, Line: 1577
+									parseContentTypeParams(pduDataStream,map,parameterLen);
+									 Information is passed through the method call via map to the formal param map of the method. This later results into a null pointer dereference.
+								File: PduParser.java, Line: 1474
+									map.put(PduPart.P_CHARSET,CharacterSets.ANY_CHARSET);
+									map is referenced in method invocation.
+							*/
+							map.put(PduPart.P_CHARSET, CharacterSets.ANY_CHARSET);
                         }
                     } else {
                         //Well-known-charset
